@@ -16,8 +16,8 @@ python full_train.py \
     --lr 0.01  \
     --scheduler_steps 75 125  \
     --debug 0  \
-    --workers 22  \
-    --batchSize 701  \
+    --workers 12  \
+    --batchSize 320  \
     --points_per_patch 300  \
     --patches_per_shape 1000  \
     --sub_sample_size 1000  \
