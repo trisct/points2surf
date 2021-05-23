@@ -8,7 +8,7 @@ python full_eval.py \
     --indir 'datasets' \
     --outdir 'results' \
     --modeldir 'models' \
-    --dataset 'abc/testset.txt' 'abc_extra_noisy/testset.txt' 'abc_noisefree/testset.txt' 'real_world/testset.txt' 'famous_original/testset.txt' 'famous_noisefree/testset.txt' 'famous_sparse/testset.txt' 'famous_dense/testset.txt' 'famous_extra_noisy/testset.txt' 'thingi10k_scans_original/testset.txt' 'thingi10k_scans_noisefree/testset.txt' 'thingi10k_scans_sparse/testset.txt' 'thingi10k_scans_dense/testset.txt' 'thingi10k_scans_extra_noisy/testset.txt'\
+    --dataset 'abc/testset.txt' 'abc_extra_noisy/testset.txt' 'abc_noisefree/testset.txt' 'famous_dense/testset.txt' 'famous_extra_noisy/testset.txt' 'famous_noisefree/testset.txt' 'famous_original/testset.txt' 'famous_sparse/testset.txt' 'real_world/testset.txt' 'thingi10k_scans_dense/testset.txt' 'thingi10k_scans_extra_noisy/testset.txt' 'thingi10k_scans_noisefree/testset.txt' 'thingi10k_scans_original/testset.txt''thingi10k_scans_sparse/testset.txt'\
     --models ${NAME} \
     --modelpostfix '_model_249.pth' \
     --batchSize 501 \

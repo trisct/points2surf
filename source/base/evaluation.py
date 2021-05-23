@@ -312,6 +312,7 @@ def mesh_comparison(new_meshes_dir_abs, ref_meshes_dir_abs,
 
     new_mesh_files = [f for f in os.listdir(new_meshes_dir_abs)
                       if os.path.isfile(os.path.join(new_meshes_dir_abs, f))]
+    print(f'[In source.base.evalutation.mesh_comparison] ref_meshes_dir_abs = {ref_meshes_dir_abs}')
     ref_mesh_files = [f for f in os.listdir(ref_meshes_dir_abs)
                       if os.path.isfile(os.path.join(ref_meshes_dir_abs, f))]
 
@@ -333,12 +334,16 @@ def mesh_comparison(new_meshes_dir_abs, ref_meshes_dir_abs,
     #     return
 
     def ref_mesh_for_new_mesh(new_mesh_file: str, all_ref_meshes: list) -> list:
+        print(f'[In source.base.evaluation.mesh_comparison] all_ref_meshes = {all_ref_meshes}')
         stem_new_mesh_file = new_mesh_file.split('.')[0]
         ref_files = list(set([f for f in all_ref_meshes if f.split('.')[0] == stem_new_mesh_file]))
         return ref_files
 
     call_params = []
     for fi, new_mesh_file in enumerate(new_mesh_files):
+        print(f"[In source.base.evaluation] new_mesh_file.split('.')[0] = {new_mesh_file.split('.')[0]}")
+        print(f"[In source.base.evaluation] mesh_files_to_compare_set = {mesh_files_to_compare_set}")
+        print(f"[In source.base.evaluation] type(mesh_files_to_compare_set) = {type(mesh_files_to_compare_set)}")
         if new_mesh_file.split('.')[0] in mesh_files_to_compare_set:
             new_mesh_file_abs = os.path.join(new_meshes_dir_abs, new_mesh_file)
             ref_mesh_files_matching = ref_mesh_for_new_mesh(new_mesh_file, ref_mesh_files)

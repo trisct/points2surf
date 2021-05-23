@@ -174,7 +174,7 @@ def main(dataset_name: str):
 
 if __name__ == "__main__":
     datasets = [
-        'abc', 'abc_extra_noisy', 'abc_noisefree',
+        'for_PGR_compare', 'abc', 'abc_extra_noisy', 'abc_noisefree',
         'famous_original', 'famous_noisefree', 'famous_dense', 'famous_extra_noisy', 'famous_sparse',
         'thingi10k_scans_original', 'thingi10k_scans_dense', 'thingi10k_scans_sparse',
         'thingi10k_scans_extra_noisy', 'thingi10k_scans_noisefree',

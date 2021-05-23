@@ -707,7 +707,9 @@ def make_dataset(dataset_name: str, blensor_bin: str, base_dir: str, num_process
 
     # the user might have removed unwanted input meshes after some processing
     # this moves (intermediate) outputs that don't have inputs anymore to the 'broken' dir
-    filter_broken_inputs = True
+    
+    # filter_broken_inputs = True
+    filter_broken_inputs = False
 
     dirs_to_clean = \
         ['00_base_meshes',
@@ -798,13 +800,19 @@ def make_dataset(dataset_name: str, blensor_bin: str, base_dir: str, num_process
 if __name__ == "__main__":
 
     blensor_bin = "bin/Blensor-x64.AppImage"
+    # blensor_bin = "blensor_1.0.18-RC10_x64/blender"
     base_dir = 'datasets'
-    num_processes = 7
+    num_processes = 4
+    # datasets = [
+    #     'abc', 'abc_extra_noisy', 'abc_noisefree',
+    #     'famous_original', 'famous_noisefree', 'famous_dense', 'famous_extra_noisy', 'famous_sparse',
+    #     'thingi10k_scans_original', 'thingi10k_scans_dense', 'thingi10k_scans_sparse',
+    #     'thingi10k_scans_extra_noisy', 'thingi10k_scans_noisefree'
+    # ]
     datasets = [
-        'abc', 'abc_extra_noisy', 'abc_noisefree',
-        'famous_original', 'famous_noisefree', 'famous_dense', 'famous_extra_noisy', 'famous_sparse',
-        'thingi10k_scans_original', 'thingi10k_scans_dense', 'thingi10k_scans_sparse',
-        'thingi10k_scans_extra_noisy', 'thingi10k_scans_noisefree'
+        'custom_abc_nonoise', 'custom_abc_smallnoise', 'custom_abc_mednoise', 'custom_abc_largenoise', 'custom_abc_extranoise',
+        'custom_famous_nonoise', 'custom_famous_smallnoise', 'custom_famous_mednoise', 'custom_famous_largenoise', 'custom_famous_extranoise', 
+        'custom_thingi10k_nonoise', 'custom_thingi10k_smallnoise', 'custom_thingi10k_mednoise', 'custom_thingi10k_largenoise', 'custom_thingi10k_extranoise'
     ]
 
     for d in datasets:

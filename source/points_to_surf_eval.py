@@ -12,6 +12,8 @@ from source import data_loader
 from source import sdf_nn
 from source.base import file_utils
 
+from icecream import ic
+
 
 def parse_arguments(args=None):
     parser = argparse.ArgumentParser()
@@ -303,6 +305,7 @@ def points_to_surf_eval(eval_opt):
     device = torch.device("cpu" if eval_opt.gpu_idx < 0 else "cuda:%d" % eval_opt.gpu_idx)
 
     for model_name in models:
+        ic(model_name)
 
         print("Random Seed: %d" % eval_opt.seed)
         random.seed(eval_opt.seed)
@@ -355,6 +358,7 @@ def points_to_surf_eval(eval_opt):
 
         print(f'evaluating {len(dataset)} patches')
         for batch_data in tqdm(dataloader):
+            
 
             # batch data to GPU
             for key in batch_data.keys():
@@ -367,6 +371,7 @@ def points_to_surf_eval(eval_opt):
                 patch_radius = batch_data['patch_radius_ms']
 
             with torch.no_grad():
+                ic(batch_data['patch_pts_ps'].shape) # [501, 300, 3]
                 batch_pred = p2s_model(batch_data)
 
             post_process(batch_pred, train_opt, output_ids, output_pred_ind, patch_radius, fixed_radius)

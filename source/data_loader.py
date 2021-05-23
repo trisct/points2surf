@@ -12,6 +12,7 @@ from source.base import utils
 from source.base import file_utils
 from source import sdf
 
+from icecream import ic
 
 def load_shape(point_filename, imp_surf_query_filename, imp_surf_dist_filename,
                query_grid_resolution=None, epsilon=None):
@@ -319,6 +320,8 @@ class PointcloudPatchDataset(data.Dataset):
         shape_ind, patch_ind = self.shape_index(index)
 
         def get_patch_points(shape, query_point):
+            #print('[In get_patch_points]')
+            #ic(query_point.shape)
 
             from source.base import point_cloud
 
@@ -347,6 +350,7 @@ class PointcloudPatchDataset(data.Dataset):
 
         shape = self.shape_cache.get(shape_ind)
         imp_surf_query_point_ms = shape.imp_surf_query_point_ms[patch_ind]
+        #ic(imp_surf_query_point_ms.shape)
 
         # get neighboring points
         patch_pts_ids, patch_pts_ps, pts_patch_ms, patch_radius_ms = \
