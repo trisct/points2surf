@@ -27,18 +27,18 @@ def full_eval(opt):
         opt.outdir = os.path.join(outdir_root, os.path.dirname(dataset))
         opt.dataset = os.path.basename(dataset)
 
-        # evaluate
-        if os.path.exists(os.path.join(opt.indir, '05_query_dist')):
-            opt.reconstruction = False
-            points_to_surf_eval.points_to_surf_eval(opt)
+        # # evaluate
+        # if os.path.exists(os.path.join(opt.indir, '05_query_dist')):
+        #     opt.reconstruction = False
+        #     points_to_surf_eval.points_to_surf_eval(opt)
 
-            res_dir_eval = os.path.join(opt.outdir, 'eval')
+        #     res_dir_eval = os.path.join(opt.outdir, 'eval')
 
-            evaluation.eval_predictions(
-                os.path.join(res_dir_eval, 'eval'),
-                os.path.join(opt.indir, '05_query_dist'),
-                os.path.join(res_dir_eval, 'rme_comp_res.csv'),
-                unsigned=False)
+        #     evaluation.eval_predictions(
+        #         os.path.join(res_dir_eval, 'eval'),
+        #         os.path.join(opt.indir, '05_query_dist'),
+        #         os.path.join(res_dir_eval, 'rme_comp_res.csv'),
+        #         unsigned=False)
 
         # reconstruct
         start = time.time()
@@ -48,7 +48,7 @@ def full_eval(opt):
         end = time.time()
         print('Inference of SDF took: {}'.format(end - start))
 
-        start = time.time()
+        TIME_START_RECON = time.time()
         imp_surf_dist_ms_dir = os.path.join(res_dir_rec, 'dist_ms')
         query_pts_ms_dir = os.path.join(res_dir_rec, 'query_pts_ms')
         vol_out_dir = os.path.join(res_dir_rec, 'vol')
@@ -60,20 +60,20 @@ def full_eval(opt):
             opt.sigma,
             opt.certainty_threshold,
             opt.workers)
-        end = time.time()
+        TIME_END_RECON = time.time()
+        print('\033[94m' + f'[Timer] Reconstruction finished in {TIME_END_RECON-TIME_START_RECON}' + '\033[0m')
         print('Sign propagation took: {}'.format(end - start))
         
-
-        new_meshes_dir_abs = os.path.join(res_dir_rec, 'mesh')
-        ref_meshes_dir_abs = os.path.join(opt.indir, '03_meshes')
-        csv_file = os.path.join(res_dir_rec, 'hausdorff_dist_pred_rec.csv')
-        evaluation.mesh_comparison(
-            new_meshes_dir_abs=new_meshes_dir_abs,
-            ref_meshes_dir_abs=ref_meshes_dir_abs,
-            num_processes=opt.workers,
-            report_name=csv_file,
-            samples_per_model=10000,
-            dataset_file_abs=os.path.join(opt.indir, opt.dataset))
+        # new_meshes_dir_abs = os.path.join(res_dir_rec, 'mesh')
+        # ref_meshes_dir_abs = os.path.join(opt.indir, '03_meshes')
+        # csv_file = os.path.join(res_dir_rec, 'hausdorff_dist_pred_rec.csv')
+        # evaluation.mesh_comparison(
+        #     new_meshes_dir_abs=new_meshes_dir_abs,
+        #     ref_meshes_dir_abs=ref_meshes_dir_abs,
+        #     num_processes=opt.workers,
+        #     report_name=csv_file,
+        #     samples_per_model=10000,
+        #     dataset_file_abs=os.path.join(opt.indir, opt.dataset))
 
 
 if __name__ == '__main__':

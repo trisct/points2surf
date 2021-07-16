@@ -7,6 +7,8 @@ import torch.nn.parallel
 import torch.utils.data
 from tqdm import tqdm
 
+from time import time
+
 from source.points_to_surf_model import PointsToSurfModel
 from source import data_loader
 from source import sdf_nn
@@ -330,10 +332,13 @@ def points_to_surf_eval(eval_opt):
 
         pred_dim, output_pred_ind = get_output_dimensions(train_opt)
         
+        TIME_START_PREPARE_DATASET = time()
         dataset = make_dataset(train_opt=train_opt, eval_opt=eval_opt)
         datasampler = make_datasampler(eval_opt=eval_opt, dataset=dataset)
         dataloader = make_dataloader(eval_opt=eval_opt, dataset=dataset, datasampler=datasampler,
                                      model_batch_size=model_batch_size)
+        TIME_END_PREPARE_DATASET = time()
+        print('\033[94m' + f'[Timer] Dataset preparation finished in {TIME_END_PREPARE_DATASET-TIME_START_PREPARE_DATASET}' + '\033[0m')
         p2s_model = make_regressor(train_opt=train_opt, pred_dim=pred_dim, model_filename=model_filename, device=device)
 
         shape_ind = 0
@@ -357,8 +362,9 @@ def points_to_surf_eval(eval_opt):
             os.makedirs(model_out_dir)
 
         print(f'evaluating {len(dataset)} patches')
+        
+        TIME_START_EVAL = time()
         for batch_data in tqdm(dataloader):
-            
 
             # batch data to GPU
             for key in batch_data.keys():
@@ -371,7 +377,7 @@ def points_to_surf_eval(eval_opt):
                 patch_radius = batch_data['patch_radius_ms']
 
             with torch.no_grad():
-                ic(batch_data['patch_pts_ps'].shape) # [501, 300, 3]
+                # ic(batch_data['patch_pts_ps'].shape) # [501, 300, 3]
                 batch_pred = p2s_model(batch_data)
 
             post_process(batch_pred, train_opt, output_ids, output_pred_ind, patch_radius, fixed_radius)
@@ -406,6 +412,9 @@ def points_to_surf_eval(eval_opt):
                             raise ValueError('Unknown sampling strategy: %s' % eval_opt.sampling)
                         shape_patch_values = torch.zeros(shape_patch_count, pred_dim,
                                                          dtype=torch.float32, device=device)
+        
+        TIME_END_EVAL = time()
+        print('\033[94m' + f'[Timer] Field evaluation finished in {TIME_END_EVAL-TIME_START_EVAL}' + '\033[0m')
 
 
 if __name__ == '__main__':

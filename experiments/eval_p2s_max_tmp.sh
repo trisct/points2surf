@@ -8,7 +8,7 @@ python full_eval.py \
     --indir 'datasets' \
     --outdir 'results' \
     --modeldir 'models' \
-    --dataset 'custom_famous_trimesh_nonoise/testset.txt'\
+    --dataset 'teaser/testset.txt'\
     --models ${NAME} \
     --modelpostfix '_model_249.pth' \
     --batchSize 501 \

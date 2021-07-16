@@ -708,8 +708,8 @@ def make_dataset(dataset_name: str, blensor_bin: str, base_dir: str, num_process
     # the user might have removed unwanted input meshes after some processing
     # this moves (intermediate) outputs that don't have inputs anymore to the 'broken' dir
     
-    filter_broken_inputs = True
-    # filter_broken_inputs = False
+    # filter_broken_inputs = True
+    filter_broken_inputs = False
 
     dirs_to_clean = \
         ['00_base_meshes',
@@ -802,7 +802,7 @@ if __name__ == "__main__":
     blensor_bin = "bin/Blensor-x64.AppImage"
     # blensor_bin = "blensor_1.0.18-RC10_x64/blender"
     base_dir = 'datasets'
-    num_processes = 1
+    num_processes = 4
     # datasets = [
     #     'abc', 'abc_extra_noisy', 'abc_noisefree',
     #     'famous_original', 'famous_noisefree', 'famous_dense', 'famous_extra_noisy', 'famous_sparse',

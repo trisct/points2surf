@@ -165,7 +165,7 @@ def main(dataset_name: str):
 
 
 if __name__ == "__main__":
-    datasets = ['custom_famous_nonoise', ]
+    datasets = ['tbike', ]
 
     for d in datasets:
         main(d)
